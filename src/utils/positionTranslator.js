@@ -40,4 +40,6 @@ const algebricToCartesian = (algebricPosition) => {
   return { x, y };
 };
 
-module.exports = { algebricToCartesian };
+const cartesianToAlgebric = ({ x, y }) => '';
+
+module.exports = { algebricToCartesian, cartesianToAlgebric };
