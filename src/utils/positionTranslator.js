@@ -40,6 +40,14 @@ const algebricToCartesian = (algebricPosition) => {
   return { x, y };
 };
 
-const cartesianToAlgebric = ({ x, y }) => '';
+const cartesianToAlgebric = ({ x, y }) => {
+  if (x > 7 || x < 0) return { error: `Failed translating x: ${x} to algebric` };
+  if (y > 7 || y < 0) return { error: `Failed translating y: ${y} to algebric` };
+
+  const algebricX = 'abcdefgh'[x];
+  const algebricY = y + 1;
+
+  return `${algebricX}${algebricY}`;
+};
 
 module.exports = { algebricToCartesian, cartesianToAlgebric };
