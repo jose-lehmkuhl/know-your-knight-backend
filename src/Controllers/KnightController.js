@@ -19,5 +19,6 @@ KnightController.moveList = {
   },
 };
 
+KnightController.getPossibleDestinations = (currentPosition) => [];
 
 module.exports = KnightController;
