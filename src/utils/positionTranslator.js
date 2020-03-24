@@ -1,37 +1,37 @@
 
-const algebricXTranslator = {
-  a: 0,
-  b: 1,
-  c: 2,
-  d: 3,
-  e: 4,
-  f: 5,
-  g: 6,
-  h: 7,
+const algebraicXTranslator = {
+  A: 0,
+  B: 1,
+  C: 2,
+  D: 3,
+  E: 4,
+  F: 5,
+  G: 6,
+  H: 7,
 };
 
 const positionInvalid = { error: 'Invalid Position.' };
 
 const getCartesianX = (algebricX) => {
-  const x = algebricXTranslator[algebricX];
+  const x = algebraicXTranslator[algebricX];
 
   if (x > 7 || x < 0 || x === undefined) return null;
 
   return x;
 };
 
-const getCartesianY = (algebricY) => {
-  const y = algebricY - 1;
+const getCartesianY = (algebraicY) => {
+  const y = algebraicY - 1;
 
   if (y > 7 || y < 0 || Number.isNaN(y)) return null;
 
   return y;
 };
 
-const algebricToCartesian = (algebricPosition) => {
-  if (algebricPosition.length !== 2) return positionInvalid;
+const algebraicToCartesian = (algebraicPosition) => {
+  if (algebraicPosition.length !== 2) return positionInvalid;
 
-  const slicedPositions = algebricPosition.slice('');
+  const slicedPositions = algebraicPosition.slice('');
   const x = getCartesianX(slicedPositions[0]);
   const y = getCartesianY(slicedPositions[1]);
 
@@ -40,14 +40,14 @@ const algebricToCartesian = (algebricPosition) => {
   return { x, y };
 };
 
-const cartesianToAlgebric = ({ x, y }) => {
+const cartesianToAlgebraic = ({ x, y }) => {
   if (x > 7 || x < 0) return { error: `Failed translating x: ${x} to algebric` };
   if (y > 7 || y < 0) return { error: `Failed translating y: ${y} to algebric` };
 
-  const algebricX = 'abcdefgh'[x];
-  const algebricY = y + 1;
+  const algebraicX = 'ABCDEFGH'[x];
+  const algebraicY = y + 1;
 
-  return `${algebricX}${algebricY}`;
+  return `${algebraicX}${algebraicY}`;
 };
 
-module.exports = { algebricToCartesian, cartesianToAlgebric };
+module.exports = { algebraicToCartesian, cartesianToAlgebraic };
