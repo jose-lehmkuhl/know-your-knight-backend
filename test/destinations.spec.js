@@ -6,6 +6,7 @@ const { expect } = chai;
 const chaiHttp = require('chai-http');
 const server = require('../src/server');
 const { cartesianToAlgebraic } = require('../src/utils/positionTranslator');
+const { quit } = require('../src/db/redisConfig');
 
 chai.use(chaiHttp);
 
@@ -14,6 +15,7 @@ const requester = chai.request(server).keepOpen();
 describe('API tests', () => {
   after(async () => {
     requester.close();
+    quit();
   });
 
   describe('Get /destination', () => {

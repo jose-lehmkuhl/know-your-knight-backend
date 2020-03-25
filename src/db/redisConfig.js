@@ -8,3 +8,4 @@ const client = redis.createClient({
 
 module.exports.setAsync = promisify(client.set).bind(client);
 module.exports.getAsync = promisify(client.get).bind(client);
+module.exports.quit = client.quit.bind(client);
