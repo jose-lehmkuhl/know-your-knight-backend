@@ -1,4 +1,5 @@
 const { cartesianToAlgebraic, algebraicToCartesian } = require('../utils/positionTranslator');
+const { storePositionData, getDestinationsFromCache } = require('../db/RedisController');
 
 const KnightController = {};
 
@@ -35,13 +36,16 @@ KnightController.getPossibleDestinations = ({ x: currentX, y: currentY }) => {
   return possibleMoves;
 };
 
-KnightController.get2turnsDestination = (req, res) => {
+KnightController.get2turnsDestination = async (req, res) => {
   const { position: currentPosition } = req.query;
 
   if (!currentPosition) return res.status(400).json({ error: 'Missing parameter: position.' });
 
   const currentCartesian = algebraicToCartesian(currentPosition);
   if (currentCartesian.error) return res.status(400).json(currentCartesian);
+
+  const cachedDestinations = await getDestinationsFromCache(currentPosition);
+  if (cachedDestinations) return res.send(cachedDestinations);
 
   const nextRoundPositions = KnightController.getPossibleDestinations(currentCartesian);
   const responseDestinations = [];
@@ -54,7 +58,10 @@ KnightController.get2turnsDestination = (req, res) => {
     return responseDestinations.push(...algebraicPositions);
   });
 
-  return res.json([...new Set(responseDestinations)]);
+  const uniqueDestinations = [...new Set(responseDestinations)];
+  res.json(uniqueDestinations);
+
+  return storePositionData(currentPosition, uniqueDestinations);
 };
 
 module.exports = KnightController;
