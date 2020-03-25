@@ -33,4 +33,11 @@ KnightController.getPossibleDestinations = ({ x: currentX, y: currentY }) => {
   return possibleMoves;
 };
 
+KnightController.get2turnsDestination = (req, res) => {
+  const { position: currentPosition } = req.query;
+
+  if (!currentPosition) return res.status(400).json({ error: 'Missing parameter: position.' });
+  return res.send('not yet implemented');
+};
+
 module.exports = KnightController;
