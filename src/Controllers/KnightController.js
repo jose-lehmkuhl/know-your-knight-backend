@@ -1,3 +1,5 @@
+const { cartesianToAlgebraic, algebraicToCartesian } = require('../utils/positionTranslator');
+
 const KnightController = {};
 
 KnightController.moveList = [
@@ -37,7 +39,22 @@ KnightController.get2turnsDestination = (req, res) => {
   const { position: currentPosition } = req.query;
 
   if (!currentPosition) return res.status(400).json({ error: 'Missing parameter: position.' });
-  return res.send('not yet implemented');
+
+  const currentCartesian = algebraicToCartesian(currentPosition);
+  if (currentCartesian.error) return res.status(400).json(currentCartesian);
+
+  const nextRoundPositions = KnightController.getPossibleDestinations(currentCartesian);
+  const responseDestinations = [];
+
+  nextRoundPositions.forEach((nextRoundPosition) => {
+    const nextRoundDestinations = KnightController.getPossibleDestinations(nextRoundPosition);
+    const algebraicPositions = nextRoundDestinations.map(cartesianToAlgebraic);
+    if (algebraicPositions[0].error) return res.status(400).json(algebraicPositions);
+
+    return responseDestinations.push(...algebraicPositions);
+  });
+
+  return res.json(responseDestinations);
 };
 
 module.exports = KnightController;
