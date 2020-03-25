@@ -54,7 +54,7 @@ KnightController.get2turnsDestination = (req, res) => {
     return responseDestinations.push(...algebraicPositions);
   });
 
-  return res.json(responseDestinations);
+  return res.json([...new Set(responseDestinations)]);
 };
 
 module.exports = KnightController;
