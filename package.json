@@ -1,5 +1,5 @@
 {
-    "name": "ae-chess-backend",
+    "name": "know-your-knight-backend",
     "version": "1.0.0",
     "description": "valid chess moves assessment solution",
     "main": "src/server.js",
