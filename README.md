@@ -23,6 +23,8 @@ You'll need a couple of things to install/run the server:
 
 `npm test` on the project directory to run the tests.
 
+## Using the api
+API responds to a GET request at `/destinations`, expecting a `position` query param that refers to the current knight position, your endpoint should end up looking like `/destinations?position=D4`
 
 ## Knight's movement algorithm
 Knights can move 2 cells in a axis and 1 in the other, so I listed all possible movements on a cartesian plane in `KnightController.moveList`.
