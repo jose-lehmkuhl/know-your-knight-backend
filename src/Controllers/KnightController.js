@@ -1,5 +1,4 @@
 const { cartesianToAlgebraic, algebraicToCartesian } = require('../utils/positionTranslator');
-const { storePositionData, getDestinationsFromCache } = require('../db/RedisController');
 
 const KnightController = {};
 
@@ -44,9 +43,6 @@ KnightController.get2turnsDestination = async (req, res) => {
   const currentCartesian = algebraicToCartesian(currentPosition);
   if (currentCartesian.error) return res.status(400).json(currentCartesian);
 
-  const cachedDestinations = await getDestinationsFromCache(currentPosition);
-  if (cachedDestinations) return res.send(cachedDestinations);
-
   const nextRoundPositions = KnightController.getPossibleDestinations(currentCartesian);
   const responseDestinations = [];
 
@@ -59,9 +55,7 @@ KnightController.get2turnsDestination = async (req, res) => {
   });
 
   const uniqueDestinations = [...new Set(responseDestinations)];
-  res.json(uniqueDestinations);
-
-  return storePositionData(currentPosition, uniqueDestinations);
+  return res.json(uniqueDestinations);
 };
 
 module.exports = KnightController;
