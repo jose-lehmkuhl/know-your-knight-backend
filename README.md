@@ -16,6 +16,7 @@ Know your Knight shows you where your knight can be in the next 2 rounds.
 You'll need a couple of things to install/run the server:
   - npm
   - by default the server try to connect to redis at `localhost:6379`, so you'll nedd redis running at your machine, I recommend doing it with docker, running `docker run --name redistest -p 6379:6379 -d redis:alpine`, but you can change this configuration at `/src/db/redisConfig.js`
+  - In case you don't want to get redis running, you can use de `redisless` branch.
 
 
 ## Running the tests
